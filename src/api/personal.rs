@@ -53,6 +53,12 @@ impl<T: Transport> Personal<T> {
     let password = helpers::serialize(&password);
     CallResult::new(self.transport.execute("personal_sendTransaction", vec![transaction, password]))
   }
+
+  /// Creates an account object from a private key.
+  pub fn private_key_to_account(&self, private_key: &str) -> CallResult<Address, T::Out> {
+    let privatekey = helpers::serialize(&private_key);
+    CallResult::new(self.transport.execute("personal_privateKeyToAccount", vec![privatekey]))
+  }
 }
 
 #[cfg(test)]
